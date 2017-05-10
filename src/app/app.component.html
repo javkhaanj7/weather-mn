@@ -1,3 +1,45 @@
-<h1>
-  {{title}}
-</h1>
+<div class="widget widget-shadow weather">
+  <div class="widget-header cover overlay">
+    <img class="cover-image" src="{{imageUrl}}">
+    <div class="overlay-panel">
+      <span class="font-size-24 white" *ngIf="selectedWeather">{{selectedWeather.city}}</span>
+      <div class="input-group pull-right" id="adv-search">
+        <input type="text" class="form-control" placeholder="Хот" [(ngModel)]="selectedWeather.city" [typeahead]="cities"/>
+        <div class="input-group-btn">
+          <div class="btn-group" role="group">
+            <div class="dropdown dropdown-lg">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+              <div class="dropdown-menu dropdown-menu-right pre-scrollable" role="menu" *ngIf="cities">
+                <ul class="cities">
+                  <li *ngFor="let city of cities; let i = index">
+                    <a href="#" (click)="setCity(city)">{{city}}</a>
+                    <ul class="cities" *ngIf="i === 0">
+                      <li class="divider"></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+          </div>
+        </div>
+    </div>
+    </div>
+  </div>
+  <div class="widget-footer" *ngIf="!isReady && !hasError">
+    <span class="info">Цаг агаарын мэдээллийг ачааллаж байна...</span>
+  </div>
+  <div class="widget-footer" *ngIf="hasError">
+    <span class="text-danger info">Цаг агаарын мэдээллийг ачааллах үед алдаа гарлаа!</span>
+  </div>
+  <div class="widget-footer" *ngIf="isReady && !hasError && (!cities || cities.indexOf(selectedWeather.city) === -1)">
+    <span class="text-warning info">Тухайн сонгогдсон хотод цаг агаарын мэдээлэл олдсонгүй!</span>
+  </div>
+  <div class="widget-footer" *ngIf="cities && cities.indexOf(selectedWeather.city) !== -1">
+    <div class="row no-space">
+      <div *ngFor="let phenomena of selectedWeather.weather; let i = index">
+        <day-expanded *ngIf="activeIndex === i" class="col-xs-4" [weather]="phenomena" [ngClass]="{'day-expanded': i > 0}"></day-expanded>
+        <day *ngIf="activeIndex !== i" class="col-xs-2" [weather]="phenomena" (changeActive)="setActive($event)" [index]="i" [ngClass]="{'weather-day': i > 0}"></day>
+    </div>
+  </div>
+</div>

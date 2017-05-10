@@ -1,0 +1,19 @@
+<div class="row text-center">
+  <div class="vertical-align-middle font-size-16">
+    <div class="margin-bottom-10">
+      <a href="#" (click)="setActive()">{{getDayName(weather.date)}}</a>
+    </div>
+    <i class="font-size-24 margin-bottom-10 margin-top-25" [ngClass]="getWeatherIcon(weather.phenoIdNight, false)"></i>
+    <div>{{weather.temperatureNight}}°
+      <span class="font-size-12">C</span>
+    </div>
+  </div>
+</div>
+<div class="row text-center">
+  <div class="vertical-align-middle font-size-16">
+    <i class="font-size-24 margin-bottom-10 margin-top-25" [ngClass]="getWeatherIcon(weather.phenoIdDay)"></i>
+    <div>{{weather.temperatureDay}}°
+      <span class="font-size-12">C</span>
+    </div>
+  </div>
+</div>

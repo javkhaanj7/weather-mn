@@ -1,0 +1,49 @@
+<div class="row no-space">
+  <div class="font-size-16 margin-bottom-10">{{getDayName(weather.date)}}
+    <span class="pull-right">{{weather.date}}</span>
+  </div>
+  <span>Шөнө</span>
+  <div class="row">
+    <div class="col-xs-4">
+      <div class="vertical-align">
+        <i class="font-size-30 margin-top-10" [ngClass]="getWeatherIcon(weather.phenoIdNight, false)"></i>
+      </div>
+    </div>
+    <div class="col-xs-8">
+      <span class="blue-600 font-size-30">{{weather.temperatureNight}}°
+        <span class="font-size-20">C</span>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-7">
+      <span class="font-size-11 pull-left">{{weather.phenoNight}}</span>
+    </div>
+    <div class="col-xs-5">
+      <span class="font-size-11 pull-right">Салхи {{weather.windNight}}м/с</span>
+    </div>
+  </div>
+</div>
+<div class="row no-space">
+  <span>Өдөр</span>
+  <div class="row">
+    <div class="col-xs-4">
+      <div class="vertical-align">
+        <i class="font-size-30 margin-top-10" [ngClass]="getWeatherIcon(weather.phenoIdDay)"></i>
+      </div>
+    </div>
+    <div class="col-xs-8">
+      <span class="blue-600 font-size-30">{{weather.temperatureDay}}°
+        <span class="font-size-20">C</span>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-7">
+      <span class="font-size-11 pull-left">{{weather.phenoDay}}</span>
+    </div>
+    <div class="col-xs-5">
+      <span class="font-size-11 pull-right">Салхи {{weather.windDay}}м/с</span>
+    </div>
+  </div>
+</div>
