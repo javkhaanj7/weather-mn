@@ -55,12 +55,21 @@ export class ForecastService {
     this.parser = new Parser({trim: true, explicitArray: false});
   }
 
-  public getAllForecast(): Promise<any[]> {
-    return this.http.get(URL_API).toPromise()
+  public getAllForecast(cors: string = ''): Promise<any[]> {
+    return this.http.get(cors + URL_API).toPromise()
       .then((response) => {
-        let body = response.text();
+        let data = null;
+        try {
+          data = response.json();
+        } catch (error) {
+          data = response.text();
+        }
+        let responseText = data;
+        if (responseText && responseText.body) {
+          responseText = responseText.body;
+        }
         let list = [];
-        let parsedData = this.parser.parseString(body, (err, result) => {
+        let parsedData = this.parser.parseString(responseText, (err, result) => {
           if (!err && result && result.xml) {
             let forecasts = result.xml.forecast5day;
             if (forecasts) {

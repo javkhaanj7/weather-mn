@@ -24,7 +24,19 @@ export class AppComponent implements OnInit {
   constructor(private forecastService: ForecastService) { }
 
   public ngOnInit(): void {
-    this.forecastService.getAllForecast().then((forecasts) => {
+    this.initData('https://cors-anywhere.herokuapp.com/');
+    Observable.timer(1000, 30000).subscribe((x) => {
+      if (!this.imageIndex || this.imageIndex > 6) {
+        this.imageIndex = 1;
+      }
+      this.imageUrl = 'assets/images/img' + this.imageIndex++ + '_opt.jpg';
+    });
+  }
+
+  public initData(cors: string) {
+    this.isReady = false;
+    this.hasError = false;
+    this.forecastService.getAllForecast(cors).then((forecasts) => {
       this.weather = forecasts;
       this.cities = [];
       this.weather.map((forecast) => this.cities.push(forecast.city));
@@ -36,12 +48,6 @@ export class AppComponent implements OnInit {
         this.isReady = true;
       }
     }).catch(() => this.hasError = true);
-    Observable.timer(1000, 30000).subscribe((x) => {
-      if (!this.imageIndex || this.imageIndex > 6) {
-        this.imageIndex = 1;
-      } 
-      this.imageUrl = 'assets/images/img' + this.imageIndex++ + '_opt.jpg';
-    });
   }
 
   public setCity(city: string) {

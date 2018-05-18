@@ -30,7 +30,11 @@
     <span class="info">Цаг агаарын мэдээллийг ачааллаж байна...</span>
   </div>
   <div class="widget-footer" *ngIf="hasError">
-    <span class="text-danger info">Цаг агаарын мэдээллийг ачааллах үед алдаа гарлаа!</span>
+    <span class="text-danger info">Цаг агаарын мэдээллийг татаж чадсангүй тул
+      <a href="javascript:void(0)" (click)="initData('https://cors-proxy.htmldriven.com/?url=')">cors-proxy</a>
+      эсвэл
+      <a href="javascript:void(0)" (click)="initData('https://cors-anywhere.herokuapp.com/')">cors-anywhere</a> хаяг дарж дахин ачааллуулах боломжтой.
+    </span>
   </div>
   <div class="widget-footer" *ngIf="isReady && !hasError && (!cities || cities.indexOf(selectedWeather.city) === -1)">
     <span class="text-warning info">Тухайн сонгогдсон хотод цаг агаарын мэдээлэл олдсонгүй!</span>
